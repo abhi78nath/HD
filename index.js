@@ -3,7 +3,6 @@
 const express = require("express");
 var bodyParser = require("body-parser");
 var app = express();
-var url = String(process.env.HOSTNAME).split("-");
 
 app.use(express.json());
 
