@@ -1,4 +1,4 @@
-// Simple Api to find update from some given course object
+// Simple Api to find update from some given hostel object
 
 const express = require("express");
 var bodyParser = require("body-parser");
@@ -7,74 +7,69 @@ var url = String(process.env.HOSTNAME).split("-");
 
 app.use(express.json());
 
-const courses = [
-  { id:1, name: 'course1' },
-  { id:2, name: 'course2' },
-  { id:3, name: 'course3' },
+const hostels = [
+  { id: 1, name: "hostel1" },
+  { id: 2, name: "hostel2" },
+  { id: 3, name: "hostel3" },
 ];
 
-app.get('/', (req,res) => {
+app.get("/", (req, res) => {
   res.send("HI there");
 });
 
-app.get('/api/courses', (req,res) => {
-  res.send(courses);
+app.get("/api/hostels", (req, res) => {
+  res.send(hostels);
 });
 
-app.get('/api/courses/:id', (req,res) => {
-    const course = courses.find(c => c.id === parseInt(req.params.id));
-    if(!course)
-    {
-        res.status(404).send('Not Found with given id');
-        console.log("Error")
-    }
-    res.send(course)
+app.get("/api/hostels/:id", (req, res) => {
+  const hostel = hostels.find((c) => c.id === parseInt(req.params.id));
+  if (!hostel) {
+    res.status(404).send("Not Found with given id");
+    console.log("Error");
+  }
+  res.send(hostel);
 });
 
-app.post('/api/courses', (req,res) => {
-  if(!req.body.name) {
-    res.status(400).send('Name is required and should be minimum 3 characters')
-    console.log("Error")
+app.post("/api/hostels", (req, res) => {
+  if (!req.body.name) {
+    res.status(400).send("Name is required and should be minimum 3 characters");
+    console.log("Error");
     return;
   }
-  if(req.body.name.length < 3) {
-    res.status(400).send("Name Length should be atleast 3 characters")
-    console.log("Error")
+  if (req.body.name.length < 3) {
+    res.status(400).send("Name Length should be atleast 3 characters");
+    console.log("Error");
   }
-  
-  const course = {
-    id: courses.length + 1,
-    name: req.body.name
+
+  const hostel = {
+    id: hostels.length + 1,
+    name: req.body.name,
   };
-  
-  courses.push(course);
-  res.send(course);
-})
 
-app.put('/api/courses/:id', (req,res) =>{
-    const course = courses.find(c => c.id === parseInt(req.params.id))
-    if(!course)
-    {
-        res.status(404).send('Not Found with given id');
-        console.log("Error")
-    }
+  hostels.push(hostel);
+  res.send(hostel);
+});
 
-    if(!req.body.name) {
-        res.status(400).send('Name is required')
-        console.log("Error")
-        return;
-      }
-      if(req.body.name.length < 3) {
-        res.status(400).send("Name Length should be atleast 3 characters")
-        console.log("Error")
-      }
+app.put("/api/hostels/:id", (req, res) => {
+  const hostel = hostels.find((c) => c.id === parseInt(req.params.id));
+  if (!hostel) {
+    res.status(404).send("Not Found with given id");
+    console.log("Error");
+  }
 
+  if (!req.body.name) {
+    res.status(400).send("Name is required");
+    console.log("Error");
+    return;
+  }
+  if (req.body.name.length < 3) {
+    res.status(400).send("Name Length should be atleast 3 characters");
+    console.log("Error");
+  }
 
-      course.name = req.body.name;
-      res.send(course);
-})
-
-
+  hostel.name = req.body.name;
+  res.send(hostel);
+});
 
 // Listen on port 8080
 var listener = app.listen(8080, function () {
