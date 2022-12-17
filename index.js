@@ -1,5 +1,5 @@
 // Simple Api to find update from some given course object
-// SHould be run in Thunder client or Postman
+
 const express = require("express");
 var bodyParser = require("body-parser");
 var app = express();
@@ -21,26 +21,29 @@ app.get('/api/courses', (req,res) => {
   res.send(courses);
 });
 
-app.get('api/courses/:id'), (req,res) => {
+app.get('/api/courses/:id', (req,res) => {
     const course = courses.find(c => c.id === parseInt(req.params.id));
     if(!course)
     {
         res.status(404).send('Not Found with given id');
+        console.log("Error")
     }
     res.send(course)
-}
+});
 
-app.post('api/courses', (req,res) => {
+app.post('/api/courses', (req,res) => {
   if(!req.body.name) {
     res.status(400).send('Name is required and should be minimum 3 characters')
+    console.log("Error")
     return;
   }
   if(req.body.name.length < 3) {
     res.status(400).send("Name Length should be atleast 3 characters")
+    console.log("Error")
   }
   
   const course = {
-    id: course.length + 1,
+    id: courses.length + 1,
     name: req.body.name
   };
   
@@ -53,14 +56,17 @@ app.put('/api/courses/:id', (req,res) =>{
     if(!course)
     {
         res.status(404).send('Not Found with given id');
+        console.log("Error")
     }
 
     if(!req.body.name) {
         res.status(400).send('Name is required')
+        console.log("Error")
         return;
       }
       if(req.body.name.length < 3) {
         res.status(400).send("Name Length should be atleast 3 characters")
+        console.log("Error")
       }
 
 
