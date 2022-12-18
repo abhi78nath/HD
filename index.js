@@ -13,7 +13,9 @@ const hostels = [
 ];
 
 app.get("/", (req, res) => {
-  res.send("HI there");
+  res.send(
+    "Welcome to Hostel API\nTo Proceed:-\n1. type /api/hostels\n2. type /api/hostels/(anynumber)"
+  );
 });
 
 app.get("/api/hostels", (req, res) => {
